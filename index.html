@@ -45,14 +45,14 @@
       display: block;
     }
 
-    /* Hover "Buy now" */
-    .overlay {
+    /* Zelený overlay Buy now */
+    .overlay-buy {
       position: absolute;
-      bottom: -25%; /* start 25% pod spodem */
+      bottom: -25%; /* start pod obrázkem */
       left: 0;
       right: 0;
-      height: 25%; /* přesně 25% výšky obrázku */
-      background-color: #28a745; /* zelené pozadí */
+      height: 25%;
+      background-color: #28a745;
       color: white;
       display: flex;
       align-items: center;
@@ -62,8 +62,29 @@
       transition: bottom 0.3s ease;
     }
 
-    .item:hover .overlay {
+    .item:hover .overlay-buy {
       bottom: 0; /* vyjede nahoru */
+    }
+
+    /* Černý text s názvem produktu nahoře */
+    .overlay-name {
+      position: absolute;
+      top: -25%; /* začíná nad obrázkem */
+      left: 0;
+      right: 0;
+      height: 25%;
+      background-color: rgba(0,0,0,0.8);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      transition: top 0.3s ease;
+    }
+
+    .item:hover .overlay-name {
+      top: 0; /* vyjede dolů na vršek obrázku */
     }
   </style>
 </head>
@@ -76,21 +97,23 @@
   <!-- PRODUCT 1 -->
   <a class="item" href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7572496381" target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'STUSSY T-SHIRT'});">
+    <div class="overlay-name">STUSSY T-SHIRT</div>
     <img src="https://si.geilicdn.com/open1639122105-1234478995-654b0000018f0e3fbb440a239631_1081_1073.jpg" 
          alt="STUSSY T-SHIRT" loading="lazy">
-    <div class="overlay">Buy now</div>
+    <div class="overlay-buy">Buy now</div>
   </a>
 
   <!-- PRODUCT 2 -->
   <a class="item" href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7381630330" target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'Product 2'});">
+    <div class="overlay-name">Product 2</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTtMyvtHJwr4Bm7YcrrVNdkfwaGtk_hKjY9bDVKXHmRwJkbI3WdbfDE0RdrcRIO4E4Drwb7wzPHBWAT3T9ETj361RTlyqlXd5VTMMYiwgw0QL5zI181KpCU" 
          alt="Product 2" loading="lazy">
-    <div class="overlay">Buy now</div>
+    <div class="overlay-buy">Buy now</div>
   </a>
 
   <!-- Přidej další produkty kopírováním tohoto bloku -->
-  
+
 </div>
 
 </body>
