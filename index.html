@@ -2,118 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Recommended Products</title>
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RWRY3884G7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-RWRY3884G7');
-  </script>
-
+  <title>Welcome - Shop Categories</title>
   <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-    }
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body, html {height:100%; font-family: Arial, sans-serif;}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .item {
+    /* Background image */
+    .container {
       position: relative;
-      display: block;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-
-    .item:hover {
-      transform: scale(1.03);
-    }
-
-    .item img {
       width: 100%;
-      display: block;
+      height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1470&q=80'); /* nahraď vlastním obrázkem */
+      background-size: cover;
+      background-position: center;
+      display: flex;
     }
 
-    /* Zelený overlay Buy now */
-    .overlay-buy {
-      position: absolute;
-      bottom: -25%; /* start pod obrázkem */
-      left: 0;
-      right: 0;
-      height: 25%;
-      background-color: #28a745;
-      color: white;
+    /* Poloviny */
+    .half {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      font-size: 18px;
-      transition: bottom 0.3s ease;
-    }
-
-    .item:hover .overlay-buy {
-      bottom: 0; /* vyjede nahoru */
-    }
-
-    /* Černý text s názvem produktu nahoře */
-    .overlay-name {
-      position: absolute;
-      top: -25%; /* začíná nad obrázkem */
-      left: 0;
-      right: 0;
-      height: 25%;
-      background-color: rgba(0,0,0,0.8);
+      cursor: pointer;
       color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 48px;
       font-weight: bold;
-      font-size: 16px;
-      transition: top 0.3s ease;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+      transition: background-color 0.3s, transform 0.3s;
+      position: relative;
     }
 
-    .item:hover .overlay-name {
-      top: 0; /* vyjede dolů na vršek obrázku */
+    .half:hover {
+      background-color: rgba(0,0,0,0.3);
+      transform: scale(1.05);
+    }
+
+    /* Klikací overlay text */
+    .half::after {
+      content:"";
+      position: absolute;
+      top:0; left:0; right:0; bottom:0;
     }
   </style>
 </head>
 <body>
 
-<h1>Recommended Products</h1>
+<div class="container">
+  <!-- Left half: Shoes -->
+  <div class="half" onclick="window.location.href='shoes.html'">
+    Shoes
+  </div>
 
-<div class="grid">
-
-  <!-- PRODUCT 1 -->
-  <a class="item" href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7572496381" target="_blank"
-     onclick="gtag('event','click',{'event_category':'affiliate','event_label':'STUSSY T-SHIRT'});">
-    <div class="overlay-name">STUSSY T-SHIRT</div>
-    <img src="https://si.geilicdn.com/open1639122105-1234478995-654b0000018f0e3fbb440a239631_1081_1073.jpg" 
-         alt="STUSSY T-SHIRT" loading="lazy">
-    <div class="overlay-buy">Buy now</div>
-  </a>
-
-  <!-- PRODUCT 2 -->
-  <a class="item" href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7381630330" target="_blank"
-     onclick="gtag('event','click',{'event_category':'affiliate','event_label':'AIR FORCE 1'});">
-    <div class="overlay-name">Product 2</div>
-    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTtMyvtHJwr4Bm7YcrrVNdkfwaGtk_hKjY9bDVKXHmRwJkbI3WdbfDE0RdrcRIO4E4Drwb7wzPHBWAT3T9ETj361RTlyqlXd5VTMMYiwgw0QL5zI181KpCU" 
-         alt="Product 2" loading="lazy">
-    <div class="overlay-buy">Buy now</div>
-  </a>
-
-  <!-- Přidej další produkty kopírováním tohoto bloku -->
-
+  <!-- Right half: T-shirts -->
+  <div class="half" onclick="window.location.href='tshirts.html'">
+    T-shirts
+  </div>
 </div>
 
 </body>
