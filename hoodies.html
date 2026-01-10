@@ -1,171 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hoodies</title>
+<meta charset="UTF-8">
+<title>Hoodies</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RWRY3884G7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-RWRY3884G7');
-  </script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RWRY3884G7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RWRY3884G7');
+</script>
 
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: Arial, sans-serif;
-      background:#f5f5f5;
-    }
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Arial, sans-serif; background:#f5f5f5; }
 
-    /* ===== HEADER ===== */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      background: #333;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 30px;
-    }
+/* ===== HEADER ===== */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #333;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
 
-    header h1 {
-      font-size: 48px;
-    }
+header h1 { font-size: 48px; }
 
-    header h1 a {
-      color: white;
-      text-decoration: none;
-    }
+header h1 a {
+  color: white;
+  text-decoration: none;
+}
 
-    header h1 a:hover { opacity: 0.85; }
+header h1 a:hover { opacity: 0.85; }
 
-    .menu-btn {
-      position: absolute;
-      right: 30px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+.menu-btn {
+  position: absolute;
+  right:30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-    .menu-btn span {
-      width: 35px;
-      height: 4px;
-      background: white;
-      border-radius: 2px;
-    }
+.menu-btn span {
+  width:35px;
+  height:4px;
+  background:white;
+  border-radius:2px;
+}
 
-    .dropdown {
-      display: none;
-      position: absolute;
-      right: 30px;
-      top: 80px;
-      background: white;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 1001;
-    }
+.dropdown {
+  display:none;
+  position:absolute;
+  right:30px;
+  top:80px;
+  background:white;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  z-index:1001;
+}
 
-    .dropdown a {
-      display: block;
-      padding: 12px 20px;
-      color: black;
-      text-decoration: none;
-    }
+.dropdown a {
+  display:block;
+  padding:12px 20px;
+  color:black;
+  text-decoration:none;
+}
 
-    .dropdown a:hover {
-      background: #28a745;
-      color: white;
-    }
+.dropdown a:hover {
+  background:#28a745;
+  color:white;
+}
 
-    /* ===== GRID ===== */
-    .grid {
-      margin-top: 140px;
-      padding: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-    }
+/* ===== GRID ===== */
+.grid {
+  margin-top:140px;
+  padding:20px;
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  gap:20px;
+}
 
-    .item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
+.item {
+  position: relative;
+  overflow: hidden;
+  border-radius:12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
 
-    .item:hover { transform: scale(1.03); }
+.item:hover { transform: scale(1.03); }
 
-    .item img { width: 100%; display: block; }
+.item img { width:100%; display:block; }
 
-    /* ===== OVERLAYS ===== */
-    .overlay-name {
-      position: absolute;
-      top: -25%;
-      left: 0;
-      right: 0;
-      height: 25%;
-      background: rgba(0,0,0,0.8);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+/* ===== OVERLAYS ===== */
+.overlay-name {
+  position:absolute;
+  top:-25%;
+  left:0;
+  right:0;
+  height:25%;
+  background:rgba(0,0,0,0.8);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  transition:0.3s;
+}
 
-    .overlay-buy {
-      position: absolute;
-      bottom: -25%;
-      left: 0;
-      right: 0;
-      height: 25%;
-      background: #28a745;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.3s;
-    }
+.overlay-buy {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:25px; /* stejné jako cena */
+  background:#28a745;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:18px;
+  transition: bottom 0.3s ease, opacity 0.3s ease;
+  opacity:0; /* na začátku neviditelné */
+  z-index:2;
+}
 
-    .item:hover .overlay-name { top: 0; }
-    .item:hover .overlay-buy { bottom: 25px; } /* zelený Buy now bude nad cenou */
+.item:hover .overlay-name { top:0; }
 
-    /* ===== CENA ===== */
-    .price {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 25px;
-      background: rgba(0,0,0,0.85);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 16px;
-      z-index: 1;
-    }
+/* ===== CENA ===== */
+.price {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:25px;
+  background:rgba(0,0,0,0.85);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:16px;
+  z-index:1;
+  transition: opacity 0.3s ease;
+}
 
-    @media(max-width:768px){
-      header h1 { font-size: 36px; }
-    }
-  </style>
+/* hover efekt: cena zmizí, Buy now vyjede */
+.item:hover .price {
+  opacity:0;
+}
+
+.item:hover .overlay-buy {
+  opacity:1;
+  bottom:0;
+}
+
+@media(max-width:768px){
+  .grid { grid-template-columns:1fr; }
+  header h1 { font-size:36px; }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <!-- klikací název → hlavní stránka -->
   <h1><a href="index.html">Hoodies</a></h1>
 
   <div class="menu-btn" onclick="toggleMenu()">
@@ -196,6 +203,7 @@
          alt="Essentials Hoodie"
          loading="lazy">
 
+    <!-- zelený Buy now, na začátku neviditelný -->
     <div class="overlay-buy">Buy now</div>
 
     <!-- ZDE UPRAV TEXT CENY -->
