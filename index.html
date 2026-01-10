@@ -220,23 +220,22 @@
     <div class="close-btn" onclick="closePopup()">✕</div>
 
     <!-- ✏️ NADPIS -->
-    <h2>Important information</h2>
+    <h2>Do you have loongbuy account?</h2>
 
     <!-- ✏️ HLAVNÍ TEXT -->
     <p>
-      This website contains affiliate links.  
-      If you purchase through these links, I may earn a commission at no extra cost to you.
+     If you want 300$ in coupons, click on the green button.
     </p>
 
     <!-- ✏️ CHECKBOX TEXT -->
     <label class="checkbox-wrap">
       <input type="checkbox" id="dontShow">
       <span class="checkmark"></span>
-      Don’t show this again
+      I already have an account.
     </label>
 
     <!-- ✏️ TEXT TLAČÍTKA + ODKAZ -->
-    <button onclick="goToLink()">Shop</button>
+    <button onclick="goToLink()">Loongbuy account</button>
 
   </div>
 </div>
@@ -271,7 +270,7 @@
     if (checkbox.checked) {
       localStorage.setItem('hidePopup', 'true');
     }
-    window.location.href = "https://YOUR-LINK-HERE.com"; // ✏️ SEM DEJ ODKAZ
+    window.location.href = "https://www.loongbuy.com/register?code=2N24N0"; // ✏️ SEM DEJ ODKAZ
   }
 </script>
 
