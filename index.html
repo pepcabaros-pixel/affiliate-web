@@ -31,10 +31,6 @@
       text-decoration: none;
     }
 
-    header h1 a:hover {
-      opacity: 0.8;
-    }
-
     .menu-btn {
       cursor: pointer;
       position: absolute;
@@ -100,36 +96,84 @@
       transition: transform 0.3s ease;
     }
 
-    .half:hover {
-      transform: scale(1.05);
+    .half:hover { transform: scale(1.05); }
+
+    .shoes { background-image: url('https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTLdx2L-mBFqGmsc4gp63ZmqlbaBSeHDWYvcA55N-Wj1jgXFhZiaINErxa0nGIBtrQOGXZ0qdVBaWHo-NaFfBtV446aIDoMaj82-n3t9B_-zzOwuftfgn7K9w'); }
+    .tshirts { background-image: url('https://si.geilicdn.com/open1639122105-1234478995-654b0000018f0e3fbb440a239631_1081_1073.jpg'); }
+    .jackets { background-image: url('https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR5721C6-dhBBjAfsdBUR8R0d75cKdpDHEt_i4FUG2ogNnivQ-kMsrebselxK9tvffRaPrOc1vjOhDvdkO3aUXFhlOcgzsT9obp8WdSywHs3TZasjycD-ILqCunaUEMFoBRFx8ApOI&usqp=CAc'); }
+    .hoodies { background-image: url('https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRrkXkIu4uv8KqqnEDq8Nnox4eVWZ2-5w3ESe0QPdZ4cdPKV0rct8hb2wfbjmNl-rC8ajUPkPovL7zEGVgFZsW0ULso6fhxtAojzRoCFZEy1OhsDoA3Zu9y&usqp=CAc'); }
+
+    /* ===== POPUP ===== */
+    .popup-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
     }
 
-    /* ===== CATEGORY BACKGROUNDS ===== */
-    .shoes {
-      background-image: url('https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTLdx2L-mBFqGmsc4gp63ZmqlbaBSeHDWYvcA55N-Wj1jgXFhZiaINErxa0nGIBtrQOGXZ0qdVBaWHo-NaFfBtV446aIDoMaj82-n3t9B_-zzOwuftfgn7K9w');
+    .popup {
+      background: white;
+      padding: 30px;
+      max-width: 420px;
+      width: 90%;
+      border-radius: 12px;
+      text-align: center;
     }
 
-    .tshirts {
-      background-image: url('https://si.geilicdn.com/open1639122105-1234478995-654b0000018f0e3fbb440a239631_1081_1073.jpg');
+    .popup h2 { margin-bottom: 15px; }
+    .popup p { margin-bottom: 20px; color: #555; }
+
+    /* ===== CUSTOM CHECKBOX ===== */
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
     }
 
-    .jackets {
-      background-image: url('https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR5721C6-dhBBjAfsdBUR8R0d75cKdpDHEt_i4FUG2ogNnivQ-kMsrebselxK9tvffRaPrOc1vjOhDvdkO3aUXFhlOcgzsT9obp8WdSywHs3TZasjycD-ILqCunaUEMFoBRFx8ApOI&usqp=CAc');
+    .checkbox-wrap input {
+      display: none;
     }
 
-    .hoodies {
-      background-image: url('https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRrkXkIu4uv8KqqnEDq8Nnox4eVWZ2-5w3ESe0QPdZ4cdPKV0rct8hb2wfbjmNl-rC8ajUPkPovL7zEGVgFZsW0ULso6fhxtAojzRoCFZEy1OhsDoA3Zu9y&usqp=CAc');
+    .checkmark {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #28a745;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* ===== MOBILE ===== */
-    @media (max-width: 768px) {
-      .container {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-      }
-      .half {
-        font-size: 24px;
-      }
+    .checkmark::after {
+      content: "✔";
+      color: white;
+      font-size: 14px;
+      display: none;
+    }
+
+    .checkbox-wrap input:checked + .checkmark {
+      background: #28a745;
+    }
+
+    .checkbox-wrap input:checked + .checkmark::after {
+      display: block;
+    }
+
+    .popup button {
+      padding: 10px 20px;
+      border: none;
+      background: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -137,14 +181,10 @@
 <body>
 
 <header>
-  <h1>
-    <a href="index.html">SPREADSHEET FINDS</a>
-  </h1>
+  <h1><a href="index.html">SPREADSHEET FINDS</a></h1>
 
   <div class="menu-btn" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </div>
 
   <div class="dropdown" id="dropdownMenu">
@@ -162,6 +202,30 @@
   <div class="half hoodies" onclick="location.href='hoodies.html'">Sweatshirts</div>
 </div>
 
+<!-- ================= POPUP ================= -->
+<div class="popup-bg" id="popup">
+  <div class="popup">
+
+    <!-- ✏️ SEM NAPIŠ NADPIS -->
+    <h2>Important information</h2>
+
+    <!-- ✏️ SEM NAPIŠ HLAVNÍ TEXT POPUPU -->
+    <p>
+      This website contains affiliate links.  
+      If you purchase through these links, I may earn a commission at no extra cost to you.
+    </p>
+
+    <!-- ✏️ SEM NAPIŠ TEXT U ZAŠKRTÁVACÍHO POLÍČKA -->
+    <label class="checkbox-wrap">
+      <input type="checkbox" id="dontShow">
+      <span class="checkmark"></span>
+      Don’t show this again
+    </label>
+
+    <button onclick="closePopup()">Continue</button>
+  </div>
+</div>
+
 <script>
   function toggleMenu() {
     const menu = document.getElementById('dropdownMenu');
@@ -173,6 +237,20 @@
       document.getElementById('dropdownMenu').style.display = 'none';
     }
   };
+
+  const popup = document.getElementById('popup');
+  const checkbox = document.getElementById('dontShow');
+
+  if (localStorage.getItem('hidePopup') === 'true') {
+    popup.style.display = 'none';
+  }
+
+  function closePopup() {
+    if (checkbox.checked) {
+      localStorage.setItem('hidePopup', 'true');
+    }
+    popup.style.display = 'none';
+  }
 </script>
 
 </body>
