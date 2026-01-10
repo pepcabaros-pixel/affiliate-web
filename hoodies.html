@@ -20,13 +20,13 @@
       background:#f5f5f5;
     }
 
-    /* ===== HEADER (sjednocený) ===== */
+    /* ===== HEADER ===== */
     header {
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
-      background: #333; /* stejná barva jako jinde */
+      background: #333;
       color: white;
       display: flex;
       justify-content: center;
@@ -42,9 +42,8 @@
       color: white;
       text-decoration: none;
     }
-    header h1 a:hover {
-      opacity: 0.85;
-    }
+
+    header h1 a:hover { opacity: 0.85; }
 
     .menu-btn {
       position: absolute;
@@ -84,9 +83,9 @@
       color: white;
     }
 
-    /* ===== GRID (stejné jako ostatní kategorie) ===== */
+    /* ===== GRID ===== */
     .grid {
-      margin-top: 140px; /* stejné odsazení */
+      margin-top: 140px;
       padding: 20px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -101,14 +100,9 @@
       transition: transform 0.2s;
     }
 
-    .item:hover {
-      transform: scale(1.03);
-    }
+    .item:hover { transform: scale(1.03); }
 
-    .item img {
-      width: 100%;
-      display: block;
-    }
+    .item img { width: 100%; display: block; }
 
     /* ===== OVERLAYS ===== */
     .overlay-name {
@@ -142,12 +136,24 @@
       transition: 0.3s;
     }
 
-    .item:hover .overlay-name {
-      top: 0;
-    }
+    .item:hover .overlay-name { top: 0; }
+    .item:hover .overlay-buy { bottom: 25px; } /* zelený Buy now bude nad cenou */
 
-    .item:hover .overlay-buy {
+    /* ===== CENA ===== */
+    .price {
+      position: absolute;
       bottom: 0;
+      left: 0;
+      right: 0;
+      height: 25px;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      z-index: 1;
     }
 
     @media(max-width:768px){
@@ -178,7 +184,7 @@
 
 <div class="grid">
 
-  <!-- PRODUCT 1 – NA STEJNÉM MÍSTĚ JAKO VŠUDE -->
+  <!-- PRODUCT 1 -->
   <a class="item"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7611547689"
      target="_blank"
@@ -191,6 +197,9 @@
          loading="lazy">
 
     <div class="overlay-buy">Buy now</div>
+
+    <!-- ZDE UPRAV TEXT CENY -->
+    <div class="price">$12.4</div>
   </a>
 
 </div>
