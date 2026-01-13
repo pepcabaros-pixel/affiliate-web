@@ -1,1 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PANTS</title>
 
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Arial, sans-serif; background:#f5f5f5; }
+
+/* ===== HEADER ===== */
+header {
+  display:flex; justify-content:center; align-items:center;
+  padding:30px; background:#333; color:white; position:fixed; width:100%; top:0; z-index:1000;
+}
+header h1 { font-size:48px; }
+header h1 a { color:white; text-decoration:none; }
+header h1 a:hover { opacity:0.85; }
+.menu-btn { position:absolute; right:30px; cursor:pointer; display:flex; flex-direction:column; gap:6px; }
+.menu-btn span { width:35px; height:4px; background:white; border-radius:2px; }
+.dropdown { display:none; position:absolute; right:30px; top:80px; background:white; box-shadow:0 4px 8px rgba(0,0,0,0.2); }
+.dropdown a { display:block; padding:12px 20px; color:black; text-decoration:none; }
+.dropdown a:hover { background:#28a745; color:white; }
+
+/* ===== SORT BUTTONS ===== */
+.sort-buttons { margin-top:100px; text-align:center; }
+.sort-buttons button {
+  padding:8px 16px; margin:0 5px; background:#28a745; color:white;
+  border:none; border-radius:6px; cursor:pointer; font-weight:bold;
+}
+.sort-buttons button:hover { opacity:0.85; }
+
+/* ===== GRID ===== */
+.grid { margin-top:20px; padding:20px; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px; }
+.item { position:relative; overflow:hidden; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s; cursor:pointer; }
+.item:hover { transform:scale(1.03); }
+.item img { width:100%; display:block; }
+
+/* ===== OVERLAYS ===== */
+.overlay-name {
+  position:absolute; top:-25%; left:0; right:0; height:25%;
+  background:rgba(0,0,0,0.8); color:white; display:flex; align-items:center; justify-content:center;
+  font-weight:bold; transition:top 0.3s ease;
+}
+.overlay-buy {
+  position:absolute; bottom:0; left:0; right:0; height:25px; background:#28a745; color:white;
+  display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:18px;
+  opacity:0; z-index:2; transition:opacity 0.3s ease, bottom 0.3s ease;
+}
+.price {
+  position:absolute; bottom:0; left:0; right:0; height:25px; background:rgba(0,0,0,0.85);
+  color:white; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px;
+  z-index:1; transition:opacity 0.3s ease;
+}
+.item:hover .overlay-name { top:0; }
+.item:hover .overlay-buy { opacity:1; bottom:0; }
+.item:hover .price { opacity:0; }
+
+@media(max-width:768px){
+  .grid { grid-template-columns:1fr; }
+  header h1 { font-size:36px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1><a href="index.html">Pants</a></h1>
+  <div class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  <div class="dropdown" id="menu">
+    <a href="shoes.html">Shoes</a>
+    <a href="tshirts.html">T-shirts</a>
+    <a href="jackets.html">Jackets</a>
+    <a href="hoodies.html">Hoodies</a>
+    <a href="pants.html">Pants</a>
+    <a href="other.html">Other</a>
+  </div>
+</header>
+
+<!-- SORT BUTTONS -->
+<div class="sort-buttons">
+  <button onclick="sortProducts('asc')">Sort by Price ↑</button>
+  <button onclick="sortProducts('desc')">Sort by Price ↓</button>
+</div>
+
+<div class="grid" id="productGrid">
+  <!-- PRODUCT 1 -->
+  <a class="item" data-price="17.09" href="https://loongbuy.com/product-details?invitecode=2N24N0&taobao=677982546221" target="_blank">
+    <div class="overlay-name">GALLERY DEPT PANTS</div>
+    <img src="https://i.ebayimg.com/images/g/rfQAAOSwZmNjxrVQ/s-l1200.jpg" loading="lazy" alt="GALLERY DEPT PANTS">
+    <div class="overlay-buy">Buy now</div>
+    <div class="price">$17.09</div>
+  </a>
+
+  <!-- PRODUCT 2 -->
+  <a class="item" data-price="21.55" href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=6187734745" target="_blank">
+    <div class="overlay-name">BALENCIAGA SHORTS</div>
+    <img src="https://cdn.saksfifthavenue.com/is/image/saks/0400020821026_BLACK?wid=600&hei=800&qlt=90&resMode=sharp2&op_usm=0.9%2C1.0%2C8%2C0" loading="lazy" alt="BALENCIAGA SHORTS">
+    <div class="overlay-buy">Buy now</div>
+    <div class="price">$21.55</div>
+  </a>
+
+  <!-- PRODUCT 3 -->
+  <a class="item" data-price="14.34" href="https://loongbuy.com/product-details?invitecode=2N24N0&taobao=678349425250" target="_blank">
+    <div class="overlay-name">TRAPSTAR PANTS</div>
+    <img src="https://trapstarclothingpl.com/wp-content/uploads/2025/12/Its-a-Secret-Autumn-Trapstar-Pants.webp" loading="lazy" alt="TRAPSTAR PANTS">
+    <div class="overlay-buy">Buy now</div>
+    <div class="price">$14.34</div>
+  </a>
+</div>
+
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('menu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+window.onclick = e => {
+  if(!e.target.closest('.menu-btn')) document.getElementById('menu').style.display = 'none';
+}
+
+// SORTING FUNCTION
+function sortProducts(order) {
+  const grid = document.getElementById('productGrid');
+  const items = Array.from(grid.getElementsByClassName('item'));
+
+  items.sort((a,b) => {
+    const priceA = parseFloat(a.getAttribute('data-price'));
+    const priceB = parseFloat(b.getAttribute('data-price'));
+    return order === 'asc' ? priceA - priceB : priceB - priceA;
+  });
+
+  items.forEach(item => grid.appendChild(item));
+}
+</script>
+
+</body>
+</html>
