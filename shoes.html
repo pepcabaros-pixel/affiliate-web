@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Shoes - Recommended Products</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shoes</title>
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RWRY3884G7"></script>
@@ -14,162 +15,332 @@
 </script>
 
 <style>
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family: Arial, sans-serif; background:#f5f5f5;}
+  :root{
+    --bg:#f6f7fb;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --green:#22c55e;
+    --green-dark:#16a34a;
+    --header-top:#0b1220;
+    --header-bottom:#111827;
+    --ring:rgba(34,197,94,.35);
+    --shadow: 0 10px 30px rgba(2,6,23,.08);
+    --shadow-hover: 0 18px 45px rgba(2,6,23,.14);
+    --radius:16px;
+  }
 
-/* HEADER */
-header {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:30px;
-  background:#333;
-  color:white;
-  position:fixed;
-  width:100%;
-  top:0;
-  z-index:1000;
-}
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
 
-header h1 {
-  font-size:48px;
-}
+  /* ===== HEADER ===== */
+  header{
+    position:fixed;
+    top:0; left:0; width:100%;
+    z-index:1000;
+    background:linear-gradient(180deg, var(--header-top) 0%, var(--header-bottom) 100%);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:22px 18px;
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+  }
+  header h1{
+    font-size:42px;
+    letter-spacing:.5px;
+    line-height:1;
+  }
+  header h1 a{ color:white; text-decoration:none; }
+  header h1 a:hover{ opacity:0.9; }
 
-header h1 a {
-  color:white;
-  text-decoration:none;
-}
+  .menu-btn{
+    position:absolute; right:18px;
+    cursor:pointer;
+    display:flex; flex-direction:column; gap:6px;
+    padding:12px;
+    border-radius:14px;
+    transition: background .2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn:hover{ background:rgba(255,255,255,.08); }
+  .menu-btn span{
+    width:34px; height:3px;
+    background:white; border-radius:2px;
+  }
 
-header h1 a:hover {
-  opacity:0.85;
-}
+  /* Desktop dropdown */
+  .dropdown{
+    display:none;
+    position:absolute;
+    right:18px;
+    top:74px;
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    z-index:1001;
+    min-width:200px;
+    border:1px solid rgba(15,23,42,.08);
+  }
+  .dropdown a{
+    display:block;
+    padding:12px 14px;
+    color:var(--text);
+    text-decoration:none;
+    font-weight:800;
+  }
+  .dropdown a:hover{
+    background:rgba(34,197,94,.10);
+    color:var(--green-dark);
+  }
 
-.menu-btn {
-  cursor:pointer;
-  position:absolute;
-  right:30px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  height:30px;
-  width:35px;
-}
+  /* ===== MOBILE MENU (sheet) ===== */
+  .mobile-sheet{
+    position:fixed;
+    inset:0;
+    background:rgba(2,6,23,.55);
+    backdrop-filter: blur(6px);
+    display:none;
+    z-index:2000;
+    padding:14px;
+  }
+  .mobile-sheet.open{ display:block; }
+  .sheet-card{
+    width:100%;
+    max-width:560px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:22px;
+    box-shadow:0 25px 70px rgba(2,6,23,.30);
+    overflow:hidden;
+    border:1px solid rgba(15,23,42,.08);
+  }
+  .sheet-top{
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(15,23,42,.08);
+  }
+  .sheet-top strong{ font-size:16px; }
+  .sheet-close{
+    border:none;
+    background:rgba(2,6,23,.06);
+    padding:10px 12px;
+    border-radius:12px;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .sheet-links a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 16px;
+    text-decoration:none;
+    font-weight:900;
+    color:var(--text);
+    border-bottom:1px solid rgba(15,23,42,.06);
+  }
+  .sheet-links a:last-child{ border-bottom:none; }
+  .sheet-links a:hover{
+    background:rgba(34,197,94,.08);
+    color:var(--green-dark);
+  }
 
-.menu-btn span {
-  display:block;
-  height:4px;
-  background:white;
-  border-radius:2px;
-}
+  /* ===== SPACER ===== */
+  .spacer{ height:86px; }
 
-.dropdown {
-  display:none;
-  position:absolute;
-  right:30px;
-  top:70px;
-  background:white;
-  color:black;
-  box-shadow:0 4px 8px rgba(0,0,0,0.2);
-  z-index:1001;
-}
+  /* ===== SORT BAR ===== */
+  .toolbar{
+    position:sticky;
+    top:86px;
+    z-index:900;
+    padding:14px 18px;
+    display:flex;
+    justify-content:center;
+    background:rgba(246,247,251,.75);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid rgba(15,23,42,.06);
+  }
+  .toolbar-inner{
+    width:min(1100px, 100%);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .toolbar-title{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .toolbar-title strong{ font-size:14px; letter-spacing:.2px; }
+  .toolbar-title span{ font-size:12px; color:var(--muted); }
 
-.dropdown a {
-  display:block;
-  padding:10px 20px;
-  text-decoration:none;
-  color:black;
-}
+  .sort-buttons{
+    display:flex; gap:10px; flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .sort-buttons button{
+    padding:10px 14px;
+    border-radius:999px;
+    border:1px solid rgba(15,23,42,.10);
+    background:white;
+    color:var(--text);
+    cursor:pointer;
+    font-weight:900;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+    box-shadow:0 6px 16px rgba(2,6,23,.06);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sort-buttons button:hover{
+    transform: translateY(-1px);
+    box-shadow:0 10px 20px rgba(2,6,23,.10);
+  }
+  .sort-buttons button.active{
+    background:linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%);
+    color:white;
+    border-color:transparent;
+    box-shadow:0 10px 22px var(--ring);
+  }
 
-.dropdown a:hover {
-  background:#28a745;
-  color:white;
-}
+  /* ===== GRID ===== */
+  .grid{
+    padding:16px 18px 40px;
+    display:grid;
+    width:min(1100px, 100%);
+    margin:0 auto;
+    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    gap:16px;
+  }
 
-/* GRID */
-.grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap:20px;
-  padding:20px;
-  margin-top:120px;
-}
+  .item{
+    position:relative;
+    overflow:hidden;
+    border-radius:var(--radius);
+    background:var(--card);
+    box-shadow:var(--shadow);
+    transition: transform .18s ease, box-shadow .18s ease;
+    cursor:pointer;
+    border:1px solid rgba(15,23,42,.06);
+    text-decoration:none;
+    display:block;
+  }
+  .item:hover{
+    transform: translateY(-4px);
+    box-shadow:var(--shadow-hover);
+  }
 
-.item {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-  cursor:pointer;
-}
+  .item img{
+    width:100%;
+    display:block;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background:#ffffff;
+    padding:14px;
+  }
 
-.item:hover { transform: scale(1.03); }
+  /* ===== OVERLAYS ===== */
+  .overlay-name{
+    position:absolute;
+    top:10px; left:10px; right:10px;
+    padding:10px 12px;
+    border-radius:12px;
+    background:rgba(15,23,42,.86);
+    color:white;
+    font-weight:900;
+    font-size:13px;
+    letter-spacing:.3px;
+    opacity:0;
+    transform: translateY(-6px);
+    transition: opacity .2s ease, transform .2s ease;
+    text-align:center;
+  }
 
-.item img { width:100%; display:block; }
+  .overlay-buy{
+    position:absolute;
+    left:10px; right:10px; bottom:10px;
+    height:42px;
+    border-radius:12px;
+    background:linear-gradient(180deg, var(--green) 0%, var(--green-dark) 100%);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:1000;
+    font-size:16px;
+    opacity:0;
+    transform: translateY(6px);
+    transition: opacity .2s ease, transform .2s ease;
+    z-index:2;
+    box-shadow:0 10px 24px var(--ring);
+  }
 
-/* PRODUCT NAME OVERLAY */
-.overlay-name {
-  position:absolute;
-  top:-25%;
-  left:0;
-  right:0;
-  height:25%;
-  background:rgba(0,0,0,0.8);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:16px;
-  transition:top 0.3s ease;
-}
+  .price{
+    position:absolute;
+    left:10px; right:10px; bottom:10px;
+    height:42px;
+    border-radius:12px;
+    background:rgba(2,6,23,.85);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:1000;
+    font-size:16px;
+    z-index:1;
+    transition: opacity .2s ease, transform .2s ease;
+  }
 
-/* BUY NOW - zelené okénko */
-.overlay-buy {
-  position:absolute;
-  bottom:0; /* start pozice */
-  left:0;
-  right:0;
-  height:25px;
-  background:#28a745;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:18px;
-  transition:opacity 0.3s ease, bottom 0.3s ease;
-  opacity:0; /* začíná neviditelné */
-  z-index:2;
-}
+  .item:hover .overlay-name{
+    opacity:1;
+    transform: translateY(0);
+  }
+  .item:hover .overlay-buy{
+    opacity:1;
+    transform: translateY(0);
+  }
+  .item:hover .price{
+    opacity:0;
+    transform: translateY(6px);
+  }
 
-/* PRICE - viditelná cena, která zmizí při hover */
-.price {
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  height:25px;
-  background:rgba(0,0,0,0.85);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:16px;
-  z-index:1;
-  transition:opacity 0.3s ease;
-}
+  /* Touch devices: show name by default (no hover) */
+  @media (hover: none){
+    .overlay-name{ opacity:1; transform:none; }
+  }
 
-/* HOVER EFEKT */
-.item:hover .overlay-name { top:0; }
-.item:hover .overlay-buy { opacity:1; bottom:0; }
-.item:hover .price { opacity:0; }
+  /* ===== MOBILE ===== */
+  @media (max-width:768px){
+    header h1{ font-size:34px; }
+    .dropdown{ display:none !important; }
+    .spacer{ height:74px; }
+    .toolbar{ top:74px; padding:12px 12px; }
+    .toolbar-inner{ flex-direction:column; align-items:flex-start; gap:10px; }
+    .sort-buttons{ width:100%; justify-content:space-between; }
+    .sort-buttons button{ flex:1; padding:12px 12px; font-size:14px; }
 
-@media(max-width:768px){
-  .grid {grid-template-columns:1fr;}
-}
+    .grid{
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+      padding:14px 12px 40px;
+    }
+    .item img{ padding:10px; }
+    .overlay-name{ top:8px; left:8px; right:8px; font-size:12px; }
+    .overlay-buy,.price{ left:8px; right:8px; bottom:8px; height:40px; font-size:15px; }
+  }
+
+  @media (max-width:420px){
+    .grid{ grid-template-columns:1fr; }
+    .item img{ padding:14px; }
+    header h1{ font-size:32px; }
+    .overlay-name{ font-size:13px; }
+  }
 </style>
 </head>
 
@@ -178,10 +349,11 @@ header h1 a:hover {
 <header>
   <h1><a href="index.html">Shoes</a></h1>
 
-  <div class="menu-btn" onclick="toggleMenu()">
+  <div class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </div>
 
+  <!-- Desktop dropdown -->
   <div class="dropdown" id="dropdownMenu">
     <a href="shoes.html">Shoes</a>
     <a href="tshirts.html">T-shirts</a>
@@ -190,373 +362,396 @@ header h1 a:hover {
   </div>
 </header>
 
-<div class="grid">
+<!-- Mobile sheet menu -->
+<div class="mobile-sheet" id="mobileSheet" onclick="sheetBackdropClose(event)">
+  <div class="sheet-card" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="sheet-top">
+      <strong>Menu</strong>
+      <button class="sheet-close" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <div class="sheet-links">
+      <a href="shoes.html">Shoes <span>›</span></a>
+      <a href="tshirts.html">T-shirts <span>›</span></a>
+      <a href="jackets.html">Jackets <span>›</span></a>
+      <a href="hoodies.html">Hoodies <span>›</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- SORT TOOLBAR -->
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="toolbar-title">
+      <strong>Sort products</strong>
+      <span>Choose how you want to order items by price</span>
+    </div>
+
+    <div class="sort-buttons">
+      <button id="sortAsc" onclick="sortProducts('asc')">Sort by Price ↑</button>
+      <button id="sortDesc" onclick="sortProducts('desc')">Sort by Price ↓</button>
+    </div>
+  </div>
+</div>
+
+<div class="grid" id="productGrid">
 
   <!-- PRODUCT 1 -->
-  <a class="item"
+  <a class="item" data-price="14.73"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7381630330"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'AIR FORCE 1'});">
-
     <div class="overlay-name">AIR FORCE 1</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTLdx2L-mBFqGmsc4gp63ZmqlbaBSeHDWYvcA55N-Wj1jgXFhZiaINErxa0nGIBtrQOGXZ0qdVBaWHo-NaFfBtV446aIDoMaj82-n3t9B_-zzOwuftfgn7K9w"
-         alt="AIR FORCE 1"
-         loading="lazy">
+         alt="AIR FORCE 1" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$14.73</div> <!-- upravit cenu -->
+    <div class="price">$14.73</div>
   </a>
 
   <!-- PRODUCT 2 -->
-  <a class="item"
+  <a class="item" data-price="24.81"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7306881915"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE TN'});">
-
     <div class="overlay-name">NIKE TN</div>
     <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSV81kYl_Be19MJPV5o6mKT1YxXvDYBDgfApT_MWpfWq6dHOCQuL8PYIIUwUJSUZUzJ_mredldClai9P8DqBMXZ1b79tMB3nkqscRtJ55bKmAfzG3BzpnU-TRZrwePL5s7oQFyt&usqp=CAc"
-         alt="NIKE TN"
-         loading="lazy">
+         alt="NIKE TN" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$24.81</div> <!-- upravit cenu -->
+    <div class="price">$24.81</div>
   </a>
 
   <!-- PRODUCT 3 -->
-  <a class="item"
+  <a class="item" data-price="20.16"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7306822575"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'ADIDAS CAMPUS'});">
-
     <div class="overlay-name">ADIDAS CAMPUS</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS77QbpAvk6kwfjUmGCcPPUc5p8wsdLtT1Lu22jaJH4D6rBJ64aFrSWAMjPrtMVVj0KBXhsdXm56mp9Tpx_xC5IAFEaO62OGayqqoHV0UC5-Wn72sPywc7HwtZyE0dQC-KxDZhs&usqp=CAc"
-         alt="ADIDAS CAMPUS"
-         loading="lazy">
+         alt="ADIDAS CAMPUS" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$20.16</div> <!-- upravit cenu -->
+    <div class="price">$20.16</div>
   </a>
-  
-    <a class="item"
+
+  <a class="item" data-price="46.2"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7306903911"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE SHOX'});">
-
     <div class="overlay-name">NIKE SHOX</div>
     <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS7lLmN8SfAoujoBnzBXvghGBUl9aqdlLHc3dC_0_yfbyh_2FIRD8AL-sSq3eO2pDx7NCgIwF6y0DMBvMlBzjVlYziPEyEf7esiqM9ylol5aWwuYrQasiBsQ1ijcpqNMv34iEN_QuM&usqp=CAc"
-         alt="NIKE SHOX"
-         loading="lazy">
+         alt="NIKE SHOX" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$46.2</div> <!-- upravit cenu -->
+    <div class="price">$46.2</div>
   </a>
 
-   <a class="item"
+  <a class="item" data-price="38.76"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7306803335"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'AIR JORDAN 4'});">
-
     <div class="overlay-name">AIR JORDAN 4</div>
     <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQPWlACNCb9u3vUMAjGR3B0v69PFhvm9XJEgF85bUyHx8tQsldNCj6bfcRQEeTYX5GgttPxIt8JrwI1unzB9SwUl--VLTy619EfDqwW5WeoEy9aiXH9Du1OTHT1c4X0W1bvW8cO7guJcQ&usqp=CAc"
-         alt="AIR JORDAN 4"
-         loading="lazy">
+         alt="AIR JORDAN 4" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$38.76</div> <!-- upravit cenu -->
-  </a> 
-  
-    <a class="item"
+    <div class="price">$38.76</div>
+  </a>
+
+  <a class="item" data-price="29.46"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7307799360"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'ADIDAS GAZELLE'});">
-
     <div class="overlay-name">ADIDAS GAZELLE</div>
     <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQjaLzq-gfGfPIGz5ed1ZrgkVApPnJFNPAmM63Wn5uQ2V14K3Fd_hc1Ksqzk2sfrRAXgbsjz4CNqoKgjuDgm0GX5_NffltivP8d6fkbyyV8rlCWPD7PTshAtE8irV3PBanRWsv9Ow&usqp=CAc"
-         alt="ADIDAS GAZELLE"
-         loading="lazy">
+         alt="ADIDAS GAZELLE" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$29.46</div> <!-- upravit cenu -->
+    <div class="price">$29.46</div>
   </a>
-  
- <a class="item"
+
+  <a class="item" data-price="23.26"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7306803235"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE AIR MAX 97'});">
-
     <div class="overlay-name">NIKE AIR MAX 97</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT3R4bL9CK6eMB_C5HQu26P4zjlqfqUhBy1FTKFp3DhSwVuilomp3XFK9g1QjSuwGuP6RT87BOlOmvWo0yIhNUbwAmgHDhQNboDs94kd4iIzZl_0XQFD3e2bgJzHdVRkBleKsiB7bq0nw&usqp=CAc"
-         alt="NIKE AIR MAX 97"
-         loading="lazy">
+         alt="NIKE AIR MAX 97" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$23.26</div> <!-- upravit cenu -->
+    <div class="price">$23.26</div>
   </a>
-   
-    <a class="item"
+
+  <a class="item" data-price="43.41"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7306809065"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NEW BALANCE 9060'});">
-
     <div class="overlay-name">NEW BALANCE 9060</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSz846OFHAOKVzQWye6S6ViwCA-g1Ky6mN0AaAuZEBld6V3M4QKLfN5FTF3m_PWnUl65uF6tpZ1Eabuv3gq8ow8GgXxWleS-XO_qOxa0RFOnh1V9uAh1CsmxrES9JvDRiRq-wwVbw&usqp=CAc"
-         alt="NEW BALANCE 9060"
-         loading="lazy">
+         alt="NEW BALANCE 9060" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$43.41</div> <!-- upravit cenu -->
+    <div class="price">$43.41</div>
   </a>
-   
-    <a class="item"
+
+  <a class="item" data-price="44.96"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7291983376"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'BAPE'});">
-
     <div class="overlay-name">BAPE</div>
     <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQFXhdbbA288bpXBJVH6mpiZRdisILDVpkpB83roOw8R7xOYzHwdPkhhDPW2e_XideszBuJXPusMMbI_x-_kxknm8C5vNaW_Cf7vd6gkpHje90I_EgP1WcFR3AlhWERQimR2e_KMg&usqp=CAc"
-         alt="BAPE"
-         loading="lazy">
+         alt="BAPE" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$44.96</div> <!-- upravit cenu -->
+    <div class="price">$44.96</div>
   </a>
-  
-    <a class="item"
+
+  <a class="item" data-price="24.65"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7291066035"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'UGC'});">
-
     <div class="overlay-name">UGC</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTL9bbO3L2FRwm2K1jEjfZzAqC4QhTwjmG4CrhVAF1F2NMI19AWegfNhTmmlb2e2X53lBeDBHkP1w4OrhKaiq_9Ml1yj87_2_tzw8Ml3hGrxrjG-hHkfsAM4hlswwgJyC9CycF9ug&usqp=CAc"
-         alt="UGC"
-         loading="lazy">
+         alt="UGC" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$24.65</div> <!-- upravit cenu -->
+    <div class="price">$24.65</div>
   </a>
-  
-   <a class="item"
+
+  <a class="item" data-price="18.6"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7292075644"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'YEEZY SLIDES'});">
-
     <div class="overlay-name">YEEZY SLIDES</div>
     <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcREXtpMewQUTpVKkggDBVmYpe20W1i_Swzg63kKrWv7Cejf3VYJtMgj7MLCmDa5uyu8OvUMm4Et35cq6RQP1ZksGRHfILqeNwhh3Hzp9eEbrCxmVUtkWnZT"
-         alt="YEEZY SLIDES"
-         loading="lazy">
+         alt="YEEZY SLIDES" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$18.6</div> <!-- upravit cenu -->
-  </a> 
-   
-    <a class="item"
+    <div class="price">$18.6</div>
+  </a>
+
+  <a class="item" data-price="24.81"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7292011004"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE DUNK LOW'});">
-
     <div class="overlay-name">NIKE DUNK LOW</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSwiHhPP3-ARvkaDQe9yve5Dwfk1o5-KYPJQPHj2C1UxV6yBAFKqth5ldGKa5eJ_mIPqDB8HHiZqoTh9PsTzaTEg7a4fdBG5cF7CIETqRp2dZ_JWmN61PQ0iA"
-         alt="NIKE DUNK LOW"
-         loading="lazy">
+         alt="NIKE DUNK LOW" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$24.81</div> <!-- upravit cenu -->
+    <div class="price">$24.81</div>
   </a>
 
-  <a class="item"
+  <a class="item" data-price="23.26"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7292058080"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'AIR FORCE 1'});">
-
     <div class="overlay-name">AIR FORCE 1</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSzIvySreEzjujuJG35hLUU-jcfRhvcWZm0uDovUDfd_wvAmKy8L4emkIpeDiwkgJmWftN-Bin_pH19Yu4WoqiAf_BGe0qYeZv6kSBsBhZqtsq-ICyJKzLJ"
-         alt="AIR FORCE 1"
-         loading="lazy">
+         alt="AIR FORCE 1" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$23.26</div> <!-- upravit cenu -->
+    <div class="price">$23.26</div>
   </a>
-  
-   <a class="item"
+
+  <a class="item" data-price="38.76"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7291064039"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'AIR JORDAN 4'});">
-
     <div class="overlay-name">AIR JORDAN 4</div>
     <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSBrPz5nTgggXFToON9HFjaf1uG3yCGCY1jMMd6IM22gt_Z9C5YstMXBQTwozuKLh0w5d55hfAtaq1B3gxxVDsehjlZCpTTaMArk9Ee_WdiCm6armoIqQQsmA"
-         alt="AIR JORDAN 4"
-         loading="lazy">
+         alt="AIR JORDAN 4" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$38.76</div> <!-- upravit cenu -->
-  </a> 
-    
-   <a class="item"
+    <div class="price">$38.76</div>
+  </a>
+
+  <a class="item" data-price="27.91"
      href="https://www.loongbuy.com/product-details?invitecode=2N24N0&weidian=7291005003"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'YEEZY BOOST 350 V2'});">
-
     <div class="overlay-name">YEEZY BOOST 350 V2</div>
     <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTbiAsjHvgkc2F77o_XvPm9y_er1SCVysGz8ARxOR9yysxDmatBT8ZSLyiGmVJL6UUuKOfOSQvA8xNdZf8BunWVRMDp_XDFmWJqu_ZD2jR9Y0ZHZT4hfRWxCw"
-         alt="YEEZY BOOST 350 V2"
-         loading="lazy">
+         alt="YEEZY BOOST 350 V2" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$27.91</div> <!-- upravit cenu -->
-  </a> 
-  
-   <a class="item"
+    <div class="price">$27.91</div>
+  </a>
+
+  <a class="item" data-price="52.71"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=5388870048"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'AIR JORDAN 1'});">
-
     <div class="overlay-name">AIR JORDAN 1</div>
     <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRTq-cJbWjR9QPqCwGb7X4KJz9RAaIxskNl2zdk5JormOXzSrQ0Vs8OCTUPPDRhDJxdBj3NsJU8OOczWV0JHtgyg-60JhDRTiiDqe5nYMRHllU5jWO0OVPEHg"
-         alt="AIR JORDAN 1"
-         loading="lazy">
+         alt="AIR JORDAN 1" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$52.71</div> <!-- upravit cenu -->
-  </a> 
-    
-   <a class="item"
+    <div class="price">$52.71</div>
+  </a>
+
+  <a class="item" data-price="43.41"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=5159426569"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'AIR JORDAN 1 LOW'});">
-
     <div class="overlay-name">AIR JORDAN 1 LOW</div>
     <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSYRq1Z9EUNz92eVrt174H60QphUaPm5QE7oyxP5l-PYuqa--tKRH4CVHigM2GjRKBxduX-BtFeYwzNXWECLhsMa4CBQ7FmmxaD41pEH5bA3rtH94aPJC3r"
-         alt="AIR JORDAN 1 LOW"
-         loading="lazy">
+         alt="AIR JORDAN 1 LOW" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$43.41</div> <!-- upravit cenu -->
-  </a> 
-   
-    <a class="item"
+    <div class="price">$43.41</div>
+  </a>
+
+  <a class="item" data-price="65.12"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=4985652016"
      target="_blank"
-     onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE BEN & JERRY'S'});">
-
-    <div class="overlay-name">NIKE BEN & JERRY'S</div>
+     onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE BEN & JERRY&#39;S'});">
+    <div class="overlay-name">NIKE BEN &amp; JERRY&#39;S</div>
     <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQzlvViBJQwryvgN1DserFvnUszUA4LZa-JoUxgAvGu9vPlLE7nbAXaaX1LI4CCLg3kDLsvogKq3ghfkOZIWOCHEv9tyqo5vrtIqF4bMFSMaOJ7LiQnXJ66zrQ"
-         alt="NIKE BEN & JERRY'S"
-         loading="lazy">
+         alt="NIKE BEN &amp; JERRY&#39;S" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$65.12</div> <!-- upravit cenu -->
+    <div class="price">$65.12</div>
   </a>
-     
-    <a class="item"
+
+  <a class="item" data-price="23.1"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=4608345170"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'BAPE'});">
-
     <div class="overlay-name">BAPE</div>
-    <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTTxhF3GLp0YUhx8D0afJ5g6n1VXla5CBnbwgzyM6wwt8Ev9qP6zA7LmG44L-tIbC8s-_DJGoQLj00B1gC--kLyc-ouX9tOQMTPF_u9Es042yOcTrBjJntx"
-         alt="BAPE"
-         loading="lazy">
+    <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTTxhF3GLp0YUhx8D0afJ5g6n1VXla5CBnbwgzyM6wwt8Ev9qP6zA7LmG44L-tIbC8s-_DJGoQLj00B1gC--kLyc-ouX9tOQMTPF_u9Es042yOcTrBjJntx&usqp=CAc"
+         alt="BAPE" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$23.1</div> <!-- upravit cenu -->
+    <div class="price">$23.1</div>
   </a>
-    
- <a class="item"
+
+  <a class="item" data-price="24.81"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=7236346529"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE AIR MAX 95'});">
-
     <div class="overlay-name">NIKE AIR MAX 95</div>
     <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTQ_pxMze7t3DH05LIdEBuw3_rr4BUbF-Gwz3qsjMHHuON3iYWy_IpPb2nQOF9zaxqZvDjJUuGRHKtpLaLVZeM10VaRrMXFFU4DxNqYPhrqzdGgvLJSJh3g"
-         alt="NIKE AIR MAX 95"
-         loading="lazy">
+         alt="NIKE AIR MAX 95" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$24.81</div> <!-- upravit cenu -->
+    <div class="price">$24.81</div>
   </a>
-    
-   <a class="item"
+
+  <a class="item" data-price="85.27"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=7222756692"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'BALENCIAGA TRACK'});">
-
     <div class="overlay-name">BALENCIAGA TRACK</div>
     <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRZBmZqeiamb8VJcduk_jYu-WX86muhWWTiuNq8SaWNoNUeOa3Hux_6gQlbVEVoRl2uIOIHklL65Yf00bKOm59W5MvdmA_laAsfhdkroKT8xDjqVoyFkYpeng"
-         alt="BALENCIAGA TRACK"
-         loading="lazy">
+         alt="BALENCIAGA TRACK" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$85.27</div> <!-- upravit cenu -->
-  </a> 
-      
- <a class="item"
+    <div class="price">$85.27</div>
+  </a>
+
+  <a class="item" data-price="22.33"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&taobao=726145768645"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE X CORTEIZ AIR MAX 95'});">
-
     <div class="overlay-name">NIKE X CORTEIZ AIR MAX 95</div>
     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSxqMhvI5Fh9Fsh9sNqIN6rYWZym0M0UBtQVzLKTbAC-9IcI-jv7H48eGLTV9BO2mSSZTvX_n66sr5kRAI28w5mb670uvtLW2b1ExvFH1SzqHG6re-gWHx7ZIEGa7BEKLwh&usqp=CAc"
-         alt="NIKE X CORTEIZ AIR MAX 95"
-         loading="lazy">
+         alt="NIKE X CORTEIZ AIR MAX 95" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$22.33</div> <!-- upravit cenu -->
+    <div class="price">$22.33</div>
   </a>
-      
-   <a class="item"
+
+  <a class="item" data-price="49.61"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=6230413247"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'TIMBERLANDS'});">
-
     <div class="overlay-name">TIMBERLANDS</div>
     <img src="https://www.footasylum.com/images/products/productlistings/4122658.jpg"
-         alt="TIMBERLANDS"
-         loading="lazy">
+         alt="TIMBERLANDS" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$49.61</div> <!-- upravit cenu -->
-  </a> 
+    <div class="price">$49.61</div>
+  </a>
 
-    <a class="item"
+  <a class="item" data-price="26.2"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=3726505599"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE TN'});">
-
     <div class="overlay-name">NIKE TN</div>
     <img src="https://static.nike.com/a/images/w_1280,c_limit,q_auto,f_auto/ehtwk7ijjrjuk3umojmw/behind-the-design-nike-air-max-plus-og.jpg"
-         alt="NIKE TN"
-         loading="lazy">
+         alt="NIKE TN" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$26.2</div> <!-- upravit cenu -->
+    <div class="price">$26.2</div>
   </a>
-    
- <a class="item"
+
+  <a class="item" data-price="24.5"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=6307738073"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'LV TRAINERS'});">
-
     <div class="overlay-name">LV TRAINERS</div>
     <img src="https://aplug.pl/cdn/shop/files/manualupload20250224t165434645z.png?v=1740416084"
-         alt="LV TRAINERS"
-         loading="lazy">
+         alt="LV TRAINERS" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$24.5</div> <!-- upravit cenu -->
+    <div class="price">$24.5</div>
   </a>
 
-    <a class="item"
+  <a class="item" data-price="26.2"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=4450389702"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'NIKE AIR MORE UPTEMPO'});">
-
     <div class="overlay-name">NIKE AIR MORE UPTEMPO</div>
     <img src="https://www.sportpodestat.cz/storage/app/uploads/public/668/3fc/4a3/6683fc4a3d193301735492.jpg"
-         alt="NIKE AIR MORE UPTEMPO"
-         loading="lazy">
+         alt="NIKE AIR MORE UPTEMPO" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$26.2</div> <!-- upravit cenu -->
+    <div class="price">$26.2</div>
   </a>
-      
- <a class="item"
+
+  <a class="item" data-price="27.6"
      href="https://loongbuy.com/product-details?invitecode=2N24N0&weidian=5995802527"
      target="_blank"
      onclick="gtag('event','click',{'event_category':'affiliate','event_label':'LV SKATES'});">
-
     <div class="overlay-name">LV SKATES</div>
     <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTLwNrIj2fqEh6sYaxQEsoJQirKSpGyIWpgagbNUxuC9jRX09CH1mZO5wIr9RUIWQsx2QU_m2RHJbPkFb6y_99ajvGb2tue5V5Fj5jYOMP2ajSPfQjQYbYsFg"
-         alt="LV SKATES"
-         loading="lazy">
+         alt="LV SKATES" loading="lazy">
     <div class="overlay-buy">Buy now</div>
-    <div class="price">$27.6</div> <!-- upravit cenu -->
+    <div class="price">$27.6</div>
   </a>
-  
+
 </div>
 
 <script>
-function toggleMenu() {
-  const menu = document.getElementById('dropdownMenu');
-  menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-}
-window.onclick = function(e){
-  const menu = document.getElementById('dropdownMenu');
-  if(!e.target.closest('.menu-btn')) menu.style.display='none';
-}
+  function isMobile(){
+    return window.matchMedia("(max-width: 768px)").matches;
+  }
+
+  function toggleMenu(){
+    if (isMobile()){
+      document.getElementById('mobileSheet').classList.toggle('open');
+      return;
+    }
+    const menu = document.getElementById('dropdownMenu');
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+  }
+
+  function closeMobileMenu(){
+    document.getElementById('mobileSheet').classList.remove('open');
+  }
+
+  function sheetBackdropClose(e){
+    if (e.target.id === 'mobileSheet') closeMobileMenu();
+  }
+
+  // Close desktop dropdown if clicking outside
+  window.addEventListener('click', (e) => {
+    if(!isMobile()){
+      if(!e.target.closest('.menu-btn') && !e.target.closest('#dropdownMenu')){
+        document.getElementById('dropdownMenu').style.display = 'none';
+      }
+    }
+  });
+
+  // SORTING + active state
+  function setActiveSort(order){
+    document.getElementById('sortAsc').classList.toggle('active', order === 'asc');
+    document.getElementById('sortDesc').classList.toggle('active', order === 'desc');
+  }
+
+  function sortProducts(order){
+    const grid = document.getElementById('productGrid');
+    const items = Array.from(grid.getElementsByClassName('item'));
+
+    items.sort((a,b) => {
+      const priceA = parseFloat(a.getAttribute('data-price'));
+      const priceB = parseFloat(b.getAttribute('data-price'));
+      return order === 'asc' ? priceA - priceB : priceB - priceA;
+    });
+
+    items.forEach(item => grid.appendChild(item));
+    setActiveSort(order);
+  }
+
+  // Default active
+  setActiveSort('asc');
 </script>
 
 </body>
